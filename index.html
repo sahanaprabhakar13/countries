@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Country List</title>
+    
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js"></script>
+    
+    <script src="app.js"></script>
+  
+  </head>
+  <style>
+    .name_1 {
+      margin-right: 60px;
+    }
+    
+  </style>
+
+  <body ng-app="searchApp">
+    <div class="container" ng-controller="searchCtrl">
+      <form ng-submit="submit()">
+        <div class="container-fluid header">
+          <div class="container">
+            <h2> Search Countries</h2>
+          </div>
+        </div>
+        <div>&nbsp;</div>
+        <div class="col-xs-12">
+          <label>Type a search keyword ...</label>
+        </div>
+        <div>&nbsp;</div>
+        <div>
+          <input type="text" class="form-control" ng-model="test" />
+        </div>
+        <div>&nbsp;</div>
+        <table ng-table="countries" class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="col-xs-1">Flag</th>
+              <th class="col-xs-2">Country</th>
+              <th class="col-xs-2">Capital</th>
+              <th class="col-xs-4">Currency (Code | Name )</th>
+              
+            </tr>
+            <tr  ng-repeat="result in results | orderBy:result.timezone | filter:test">
+              <td>
+                <img ng-src="{{result.flag}}" style="width:50px" />
+                
+              </td>
+              <td style="text-align:center" >{{ result.name }}</td>
+
+              <td style="text-align:center" >{{ result.capital }}</td>
+              <td style="text-align:center" >
+                <div ng-repeat="currency in result.currencies"> {{currency.code}} | {{currency.name}} 
+								</div>
+              </td>
+              
+              
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </body>
+
+</html>
